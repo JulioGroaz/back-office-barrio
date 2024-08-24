@@ -28,6 +28,7 @@ return new class extends Migration
                 'food'
             ]); // Categoria con opzioni predefinite
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

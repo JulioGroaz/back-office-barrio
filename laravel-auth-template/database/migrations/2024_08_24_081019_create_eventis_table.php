@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('eventis', function (Blueprint $table) {
             $table->id();
+            $table->string('title'); // Titolo dell'evento
+            $table->dateTime('event_date_time'); // Data e orario dell'evento
+            $table->text('description')->nullable(); // Descrizione dell'evento (non obbligatoria)
+            $table->string('image_path')->nullable(); // Percorso dell'immagine associata all'evento
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 
