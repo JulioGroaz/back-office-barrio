@@ -12,7 +12,8 @@ class EventiController extends Controller
      */
     public function index()
     {
-        //
+        $events = [];
+        return view('admin.events.indexevents', compact('events'));
     }
 
     /**

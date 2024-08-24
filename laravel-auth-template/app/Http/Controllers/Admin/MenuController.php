@@ -12,7 +12,8 @@ class MenuController extends Controller
      */
     public function index()
     {
-        //
+        $menues = [];
+        return view('admin.menues.indexmenu', compact('menues'));
     }
 
     /**

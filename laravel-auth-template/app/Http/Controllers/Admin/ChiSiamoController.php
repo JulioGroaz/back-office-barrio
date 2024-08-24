@@ -12,7 +12,8 @@ class ChiSiamoController extends Controller
      */
     public function index()
     {
-        //
+        $chisiamo = [];
+        return view('admin.chisiamo.indexchisiamo', compact('chisiamo'));
     }
 
     /**
