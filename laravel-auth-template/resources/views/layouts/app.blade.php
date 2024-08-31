@@ -30,7 +30,18 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
+                        @auth
+                            <li class="nav-item">
 
+                                <a class="nav-link" href="/admin/menues">Menu</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin/events">Eventi</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin/chisiamo">Chi Siamo</a>
+                            </li>
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -78,3 +89,4 @@
     </div>
 </body>
 </html>
+

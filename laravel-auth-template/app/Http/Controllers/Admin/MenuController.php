@@ -14,17 +14,17 @@ class MenuController extends Controller
     public function index()
     {
          // Definisci le categorie disponibili
-    $categories = [
-        'caffetteria',
-        'aperitivi',
-        'vini_bianchi',
-        'vini_rossi',
-        'vini_rose',
-        'vini_bollicine',
-        'cocktail',
-        'superalcolici',
-        'food'
-    ];
+        $categories = [
+            'caffetteria',
+            'aperitivi',
+            'vini_bianchi',
+            'vini_rossi',
+            'vini_rose',
+            'vini_bollicine',
+            'cocktail',
+            'superalcolici',
+            'food'
+        ];
 
         $menues = Menu::orderBy('category')->get();
         return view('admin.menues.indexmenu', compact('menues','categories'));
