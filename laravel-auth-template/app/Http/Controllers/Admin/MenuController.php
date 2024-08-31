@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Menu;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
@@ -12,8 +13,21 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $menues = [];
-        return view('admin.menues.indexmenu', compact('menues'));
+         // Definisci le categorie disponibili
+    $categories = [
+        'caffetteria',
+        'aperitivi',
+        'vini_bianchi',
+        'vini_rossi',
+        'vini_rose',
+        'vini_bollicine',
+        'cocktail',
+        'superalcolici',
+        'food'
+    ];
+
+        $menues = Menu::orderBy('category')->get();
+        return view('admin.menues.indexmenu', compact('menues','categories'));
     }
 
     /**

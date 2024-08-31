@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use App\Models\Eventi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -12,7 +12,7 @@ class EventiController extends Controller
      */
     public function index()
     {
-        $events = [];
+        $events = Eventi::orderBy('event_date_time', 'desc')->get();
         return view('admin.events.indexevents', compact('events'));
     }
 

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use App\Models\ChiSiamo;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -12,7 +12,7 @@ class ChiSiamoController extends Controller
      */
     public function index()
     {
-        $chisiamo = [];
+        $chisiamo = ChiSiamo::all();
         return view('admin.chisiamo.indexchisiamo', compact('chisiamo'));
     }
 
