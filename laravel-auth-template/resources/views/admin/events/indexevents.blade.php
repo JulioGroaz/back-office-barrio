@@ -12,10 +12,6 @@
         </a>
     </div>
 
-    <div class="row justify-content-center">
-        @dump($events)
-    </div>
-
     <!-- Sezione per la lista degli eventi -->
     <div class="row">
         @foreach ($events as $event)
