@@ -2,19 +2,33 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        @dump($menues)
-    </div>
-    @foreach ($categories as $category)
-        @php
-            // Filtra i menù per categoria
-            $filteredMenus = $menues->filter(function ($menu) use ($category) {
-                return $menu->category == $category;
-            });
-        @endphp
+    <h2>Lista dei Prodotti del Menu</h2>
 
-        @if ($filteredMenus->isNotEmpty())
-            <h2>{{ ucfirst(str_replace('_', ' ', $category)) }}</h2>
+    <!-- Contenitore per filtro e pulsante allineati sulla stessa linea -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <!-- Form per selezionare le categorie da filtrare -->
+        <form action="{{ route('admin.menues.index') }}" method="GET" class="d-flex align-items-center">
+            <div class="form-group mb-0">
+                <label for="category_filter" class="mr-2">Filtra per categoria:</label><br>
+                @foreach($categories as $category)
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="categories[]" value="{{ $category }}"
+                               @if(is_array(request()->categories) && in_array($category, request()->categories)) checked @endif>
+                        <label class="form-check-label">{{ ucfirst(str_replace('_', ' ', $category)) }}</label>
+                    </div>
+                @endforeach
+            </div>
+            <button type="submit" class="btn btn-primary ml-2">Filtra</button>
+        </form>
+
+        <!-- Pulsante per aggiungere un nuovo prodotto -->
+        <a href="{{ route('admin.menues.create') }}" class="btn btn-primary">
+            <i class="fa fa-plus"></i> Aggiungi Prodotto
+        </a>
+    </div>
+
+    <div class="row justify-content-center">
+        @if($filteredMenus->isNotEmpty())
             <table class="table table-dark table-striped">
                 <thead>
                     <tr>
@@ -22,7 +36,7 @@
                         <th scope="col">Descrizione</th>
                         <th scope="col">Categoria</th>
                         <th scope="col">Prezzo</th>
-                        <th scope="col">Azioni</th> <!-- Colonna per azioni -->
+                        <th scope="col">Azioni</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,23 +47,21 @@
                             <td>{{ ucfirst(str_replace('_', ' ', $menu->category)) }}</td>
                             <td>{{ number_format($menu->price, 2) }} €</td>
                             <td>
-                                <a href="{{ route('admin.menues.show', $menu) }}" class="btn btn-info"><i class="fa-solid fa-eye"></i></a>
-                                <a href="{{ route('admin.menues.edit', $menu) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
-
-                                <!-- Modifica rotta di cancellazione -->
-                                <form action="{{ route('admin.menues.destroy', $menu) }}" method="POST" style="display:inline;">
+                                <a href="{{ route('admin.menues.show', $menu->id) }}" class="btn btn-info">Vedi</a>
+                                <a href="{{ route('admin.menues.edit', $menu->id) }}" class="btn btn-warning">Modifica</a>
+                                <form action="{{ route('admin.menues.destroy', $menu->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Sei sicuro di voler eliminare questo elemento dal menu?')">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
+                                    <button type="submit" class="btn btn-danger">Elimina</button>
                                 </form>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+        @else
+            <p>Nessun prodotto trovato per le categorie selezionate.</p>
         @endif
-    @endforeach
+    </div>
 </div>
 @endsection

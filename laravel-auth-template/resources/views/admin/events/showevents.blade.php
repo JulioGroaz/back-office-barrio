@@ -3,7 +3,8 @@
 @section('content')
 <div class="container">
     <div class="card mb-3">
-        <img src="{{ $event->image_path }}" class="card-img-top" alt="{{ $event->title }}">
+        <img src="{{ asset('storage/' . $event->image_path) }}" class="img-fluid" alt="{{ $event->title }}">
+
         <div class="card-body">
             <h5 class="card-title">{{ $event->title }}</h5>
             <p class="card-text">{{ $event->description }}</p>

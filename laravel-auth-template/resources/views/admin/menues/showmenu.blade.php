@@ -2,25 +2,30 @@
 
 @section('content')
 <div class="container">
-    <h2>{{ $menu->name }}</h2>
-    <div class="row">
-        <div class="col-md-6">
-            <img src="{{ asset('storage/' . $menu->image) }}" class="img-fluid" alt="{{ $menu->name }}">
-        </div>
-        <div class="col-md-6">
-            <p><strong>Descrizione:</strong> {{ $menu->description }}</p>
-            <p><strong>Categoria:</strong> {{ ucfirst(str_replace('_', ' ', $menu->category)) }}</p>
-            <p><strong>Prezzo:</strong> {{ number_format($menu->price, 2) }} €</p>
-            <a href="{{ route('admin.menues.edit', $menu) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i> Modifica</a>
+    <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <!-- Immagine del prodotto -->
+                <img src="{{ asset('storage/' . $menu->image_path) }}" class="img-fluid rounded-start" alt="{{ $menu->name }}">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <!-- Titolo del prodotto -->
+                    <h5 class="card-title">{{ $menu->name }}</h5>
 
-            <form action="{{ route('admin.menues.destroy', $menu) }}" method="POST" style="display:inline;">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger" onclick="return confirm('Sei sicuro di voler eliminare questo menu?')">
-                    <i class="fa-solid fa-trash"></i> Elimina
-                </button>
-            </form>
+                    <!-- Descrizione del prodotto -->
+                    <p class="card-text">{{ $menu->description }}</p>
+
+                    <!-- Prezzo del prodotto -->
+                    <p class="card-text"><small class="text-body-secondary">{{ number_format($menu->price, 2) }} €</small></p>
+                </div>
+            </div>
         </div>
     </div>
+
+    <!-- Pulsante per tornare alla lista dei prodotti -->
+    <a href="{{ route('admin.menues.index') }}" class="btn btn-secondary mt-3">
+        <i class="fa fa-arrow-left"></i> Torna alla lista dei prodotti
+    </a>
 </div>
 @endsection

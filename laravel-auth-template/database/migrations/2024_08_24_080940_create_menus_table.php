@@ -27,7 +27,7 @@ return new class extends Migration
                 'superalcolici',
                 'food'
             ]); // Categoria con opzioni predefinite
-            $table->string('image')->nullable(); // Colonna per memorizzare il percorso dell'immagine
+            $table->string('image_path')->nullable(); // Colonna per memorizzare il percorso dell'immagine
             $table->timestamps();
             $table->softDeletes();
         });
