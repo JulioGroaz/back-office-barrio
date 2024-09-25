@@ -29,12 +29,13 @@
             <small>Lascia vuoto se non vuoi cambiare immagine</small>
         </div>
 
-        <a href="{{ route('admin.events.show', $event) }}" class="btn btn-secondary mt-3">
-            Salva Modifiche
-        </a>
+        <!-- Bottone per salvare le modifiche -->
+        <button type="submit" class="btn btn-primary mt-3">Salva Modifiche</button>
     </form>
 
-    <!-- Pulsante per tornare alla vista show -->
-
+    <!-- Pulsante per tornare alla lista degli eventi -->
+    <a href="{{ route('admin.events.index') }}" class="btn btn-secondary mt-3">
+        <i class="fa fa-arrow-left"></i> Torna alla lista degli eventi
+    </a>
 </div>
 @endsection
