@@ -22,6 +22,7 @@
                         <th scope="col">Descrizione</th>
                         <th scope="col">Categoria</th>
                         <th scope="col">Prezzo</th>
+                        <th scope="col">Azioni</th> <!-- Colonna per azioni -->
                     </tr>
                 </thead>
                 <tbody>
@@ -31,6 +32,19 @@
                             <td>{{ $menu->description }}</td>
                             <td>{{ ucfirst(str_replace('_', ' ', $menu->category)) }}</td>
                             <td>{{ number_format($menu->price, 2) }} €</td>
+                            <td>
+                                <a href="{{ route('admin.menues.show', $menu) }}" class="btn btn-info"><i class="fa-solid fa-eye"></i></a>
+                                <a href="{{ route('admin.menues.edit', $menu) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+
+                                <!-- Modifica rotta di cancellazione -->
+                                <form action="{{ route('admin.menues.destroy', $menu) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Sei sicuro di voler eliminare questo elemento dal menu?')">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

@@ -12,9 +12,13 @@ class ChiSiamoSeeder extends Seeder
      */
     public function run(Faker $faker): void
     {
-        $newChiSiamo = new ChiSiamo();
-        $newChiSiamo->title = $faker->realText(20);
-        $newChiSiamo->description = $faker->realText(300);
-        $newChiSiamo->image_path = $faker->imageUrl(400,250,'menues');
+
+            $newChiSiamo = new ChiSiamo();
+            $newChiSiamo->title = $faker->realText(20);
+            $newChiSiamo->description = $faker->realText(300);
+            $newChiSiamo->image_path = $faker->imageUrl(400,250,'chisiamo');
+            $newChiSiamo->save(); // Salva il nuovo record nel database
+
+
     }
 }

@@ -49,10 +49,15 @@ class MenuController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        // Recupera il menu dal database usando l'ID
+        $menu = Menu::findOrFail($id);
+
+        // Passa il menu alla vista
+        return view('admin.menues.showmenu', compact('menu'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
