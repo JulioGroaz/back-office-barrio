@@ -16,7 +16,9 @@ class MenuController extends Controller
 {
     // Definisci le categorie disponibili
     $categories = [
+        'analcolici',
         'caffetteria',
+        'birre',
         'aperitivi',
         'vini_bianchi',
         'vini_rossi',
@@ -46,7 +48,9 @@ class MenuController extends Controller
     {
         // Mostra la vista per creare un nuovo prodotto del menu
         $categories = [
+            'analcolici',
             'caffetteria',
+            'birre',
             'aperitivi',
             'vini_bianchi',
             'vini_rossi',
@@ -116,7 +120,9 @@ class MenuController extends Controller
 
         // Definisci le categorie disponibili
         $categories = [
+            'analcolici',
             'caffetteria',
+            'birre',
             'aperitivi',
             'vini_bianchi',
             'vini_rossi',
@@ -135,47 +141,48 @@ class MenuController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
-    {
-        // Valida i dati in ingresso
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'price' => 'required|numeric',
-            'category' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+{
+    // Valida i dati in ingresso
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'description' => 'nullable|string',
+        'price' => 'required|numeric',
+        'category' => 'required|string',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
 
-        // Recupera il prodotto dal database
-        $menu = Menu::findOrFail($id);
+    // Recupera il prodotto dal database
+    $menu = Menu::findOrFail($id);
 
-        // Aggiorna i dati del menu
-        $menu->name = $request->name;
-        $menu->description = $request->description;
-        $menu->price = $request->price;
-        $menu->category = $request->category;
+    // Aggiorna i dati del menu
+    $menu->name = $request->name;
+    $menu->description = $request->description;
+    $menu->price = $request->price;
+    $menu->category = $request->category;
 
-        // Gestione dell'immagine
-        if ($request->hasFile('image')) {
-            // Rimuovi la vecchia immagine se esiste
-            if ($menu->image_path) {
-                Storage::delete('public/images/' . $menu->image_path);
-            }
-
-            // Carica la nuova immagine
-            $file = $request->file('image');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/images', $filename);
-
-            // Aggiorna il percorso dell'immagine nei dati
-            $menu->image_path = $filename;
+    // Gestione dell'immagine
+    if ($request->hasFile('image')) {
+        // Rimuovi la vecchia immagine se esiste
+        if ($menu->image_path && Storage::exists('public/' . $menu->image_path)) {
+            Storage::delete('public/' . $menu->image_path);
         }
 
-        // Salva le modifiche al menu
-        $menu->save();
+        // Carica la nuova immagine
+        $file = $request->file('image');
+        $filename = time() . '.' . $file->getClientOriginalExtension();
+        $file->storeAs('public/images', $filename);
 
-        // Reindirizza alla pagina del prodotto aggiornato
-        return redirect()->route('admin.menues.show', $menu->id)->with('success', 'Prodotto aggiornato con successo');
+        // Aggiorna il percorso dell'immagine nei dati
+        $menu->image_path = 'images/' . $filename;
     }
+
+    // Salva le modifiche al menu
+    $menu->save();
+
+    // Reindirizza alla pagina del prodotto aggiornato
+    return redirect()->route('admin.menues.show', $menu->id)->with('success', 'Prodotto aggiornato con successo');
+}
+
 
     /**
      * Remove the specified resource from storage.

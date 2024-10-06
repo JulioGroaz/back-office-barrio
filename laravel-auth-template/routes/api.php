@@ -19,3 +19,6 @@ Route::get('/chi-siamo', [ChiSiamoControllerApi::class, 'index']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/categories', [MenuControllerApi::class, 'getCategories']);
+

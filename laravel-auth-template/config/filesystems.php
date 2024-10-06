@@ -38,11 +38,12 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'root' => storage_path('app/public'),  // Questo è corretto
+            'url' => env('APP_URL').'/storage',  // Questo è l'URL corretto per accedere alle immagini
             'visibility' => 'public',
             'throw' => false,
         ],
+
 
         's3' => [
             'driver' => 's3',

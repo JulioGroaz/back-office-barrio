@@ -17,7 +17,9 @@ return new class extends Migration
             $table->decimal('price', 8, 2); // Prezzo del prodotto
             $table->text('description')->nullable(); // Descrizione del prodotto (non obbligatoria)
             $table->enum('category', [
+                'analcolici',
                 'caffetteria',
+                'birre',
                 'aperitivi',
                 'vini_bianchi',
                 'vini_rossi',
