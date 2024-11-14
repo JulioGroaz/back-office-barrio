@@ -13,33 +13,33 @@ class MenuController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-{
-    // Definisci le categorie disponibili
-    $categories = [
-        'analcolici',
-        'caffetteria',
-        'birre',
-        'aperitivi',
-        'vini_bianchi',
-        'vini_rossi',
-        'vini_rose',
-        'vini_bollicine',
-        'cocktail',
-        'superalcolici',
-        'food'
-    ];
+    {
+        // Definisci le categorie disponibili
+        $categories = [
+            'analcolici',
+            'caffetteria',
+            'birre',
+            'aperitivi',
+            'vini_bianchi',
+            'vini_rossi',
+            'vini_rose',
+            'vini_bollicine',
+            'cocktail',
+            'superalcolici',
+            'food'
+        ];
 
-    // Filtra i prodotti in base alle categorie selezionate
-    if ($request->has('categories')) {
-        $filteredMenus = Menu::whereIn('category', $request->categories)->orderBy('category')->get();
-    } else {
-        // Se nessuna categoria è selezionata, mostra tutti i prodotti
-        $filteredMenus = Menu::orderBy('category')->get();
+        // Filtra i prodotti in base alle categorie selezionate
+        if ($request->has('categories')) {
+            $filteredMenus = Menu::whereIn('category', $request->categories)->orderBy('category')->get();
+        } else {
+            // Se nessuna categoria è selezionata, mostra tutti i prodotti
+            $filteredMenus = Menu::orderBy('category')->get();
+        }
+
+        // Passa i dati alla vista
+        return view('admin.menues.indexmenu', compact('filteredMenus', 'categories'));
     }
-
-    // Passa i dati alla vista
-    return view('admin.menues.indexmenu', compact('filteredMenus', 'categories'));
-}
 
     /**
      * Show the form for creating a new resource.
@@ -87,14 +87,14 @@ class MenuController extends Controller
 
         // Gestione dell'immagine
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images', 'public');
-            $menu->image_path = $imagePath;
+            $imagePath = $request->file('image')->store('images', 'public'); // Salva in 'storage/app/public/images'
+            $menu->image_path = $imagePath; // Salva il percorso nel database
         }
 
         // Salva il prodotto nel database
         $menu->save();
 
-        // Reindirizza alla lista dei prodotti con messaggio di successo
+        // Reindirizza alla lista dei prodotti con un messaggio di successo
         return redirect()->route('admin.menues.index')->with('success', 'Prodotto creato con successo');
     }
 
@@ -141,48 +141,43 @@ class MenuController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
-{
-    // Valida i dati in ingresso
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'description' => 'nullable|string',
-        'price' => 'required|numeric',
-        'category' => 'required|string',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    ]);
+    {
+        // Valida i dati in ingresso
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric',
+            'category' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-    // Recupera il prodotto dal database
-    $menu = Menu::findOrFail($id);
+        // Recupera il prodotto dal database
+        $menu = Menu::findOrFail($id);
 
-    // Aggiorna i dati del menu
-    $menu->name = $request->name;
-    $menu->description = $request->description;
-    $menu->price = $request->price;
-    $menu->category = $request->category;
+        // Aggiorna i dati del menu
+        $menu->name = $request->name;
+        $menu->description = $request->description;
+        $menu->price = $request->price;
+        $menu->category = $request->category;
 
-    // Gestione dell'immagine
-    if ($request->hasFile('image')) {
-        // Rimuovi la vecchia immagine se esiste
-        if ($menu->image_path && Storage::exists('public/' . $menu->image_path)) {
-            Storage::delete('public/' . $menu->image_path);
+        // Gestione dell'immagine
+        if ($request->hasFile('image')) {
+            // Rimuovi la vecchia immagine se esiste
+            if ($menu->image_path && Storage::exists('public/' . $menu->image_path)) {
+                Storage::delete('public/' . $menu->image_path);
+            }
+
+            // Carica la nuova immagine nella cartella corretta 'images/'
+            $imagePath = $request->file('image')->store('images', 'public'); // Salva in 'storage/app/public/images'
+            $menu->image_path = $imagePath; // Aggiorna il percorso dell'immagine nel database
         }
 
-        // Carica la nuova immagine
-        $file = $request->file('image');
-        $filename = time() . '.' . $file->getClientOriginalExtension();
-        $file->storeAs('public/images', $filename);
+        // Salva le modifiche al menu
+        $menu->save();
 
-        // Aggiorna il percorso dell'immagine nei dati
-        $menu->image_path = 'images/' . $filename;
+        // Reindirizza alla pagina del prodotto aggiornato
+        return redirect()->route('admin.menues.show', $menu->id)->with('success', 'Prodotto aggiornato con successo');
     }
-
-    // Salva le modifiche al menu
-    $menu->save();
-
-    // Reindirizza alla pagina del prodotto aggiornato
-    return redirect()->route('admin.menues.show', $menu->id)->with('success', 'Prodotto aggiornato con successo');
-}
-
 
     /**
      * Remove the specified resource from storage.

@@ -49,8 +49,8 @@ class EventiController extends Controller
 
         // Gestione dell'immagine
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images', 'public');
-            $event->image_path = $imagePath;
+            $imagePath = $request->file('image')->store('images', 'public'); // Salva in 'storage/app/public/images'
+            $event->image_path = $imagePath; // Salva il percorso completo nel database
         }
 
         // Salva l'evento
@@ -103,17 +103,15 @@ class EventiController extends Controller
         // Gestione dell'immagine
         if ($request->hasFile('image')) {
             // Rimuovi la vecchia immagine se esiste
-            if ($event->image_path) {
-                Storage::delete('public/images/' . $event->image_path);
+            if ($event->image_path && Storage::exists('public/' . $event->image_path)) {
+                Storage::delete('public/' . $event->image_path);
             }
 
             // Carica la nuova immagine
-            $file = $request->file('image');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/images', $filename);
+            $imagePath = $request->file('image')->store('images', 'public'); // Salva in 'storage/app/public/images'
 
             // Aggiorna il percorso dell'immagine nei dati
-            $event->image_path = $filename;
+            $event->image_path = $imagePath; // Salva il percorso completo nel database
         }
 
         // Aggiorna i dati dell'evento
@@ -133,6 +131,18 @@ class EventiController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // Recupera l'evento dal database
+        $event = Eventi::findOrFail($id);
+
+        // Rimuovi l'immagine se esiste
+        if ($event->image_path && Storage::exists('public/' . $event->image_path)) {
+            Storage::delete('public/' . $event->image_path);
+        }
+
+        // Elimina l'evento dal database
+        $event->delete();
+
+        // Reindirizza alla lista degli eventi con un messaggio di successo
+        return redirect()->route('admin.events.index')->with('success', 'Evento eliminato con successo');
     }
 }

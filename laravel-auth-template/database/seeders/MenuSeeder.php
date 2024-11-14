@@ -14,6 +14,7 @@ class MenuSeeder extends Seeder
     public function run(Faker $faker): void
     {
         $categories = [
+            'analcolici',
             'caffetteria',
             'aperitivi',
             'vini_bianchi',

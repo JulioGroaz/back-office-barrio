@@ -7,4 +7,141 @@
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
 
+@import "@fortawesome/fontawesome-free/css/all.css";
 
+/* Stili per la riga della tabella in base alla categoria */
+
+/* Riga per prodotti nella categoria 'analcolici' */
+.category-analcolici {
+    background-color: #FFC0CB; /* Rosa confetto */
+    color: black; /* Testo nero per contrasto */
+}
+
+.category-analcolici td,
+.category-analcolici th {
+    background-color: #FFC0CB; /* Colora anche l'interno delle celle */
+    color: black; /* Colore del testo */
+    border-color: black; /* Bordi neri */
+}
+
+/* Riga per prodotti nella categoria 'caffetteria' */
+.category-caffetteria {
+    background-color: #654321; /* Marrone scuro */
+    color: white; /* Testo bianco per contrasto */
+}
+
+.category-caffetteria td,
+.category-caffetteria th {
+    background-color: #654321; /* Colora anche l'interno delle celle */
+    color: white; /* Colore del testo */
+    border-color: black; /* Bordi neri */
+}
+
+/* Riga per prodotti nella categoria 'birre' */
+.category-birre {
+    background-color: #F5E600; /* Giallo brillante */
+    color: black; /* Testo nero per contrasto */
+}
+
+.category-birre td,
+.category-birre th {
+    background-color: #F5E600; /* Colora anche l'interno delle celle */
+    color: black; /* Colore del testo */
+    border-color: black; /* Bordi neri */
+}
+
+/* Riga per prodotti nella categoria 'aperitivi' */
+.category-aperitivi {
+    background-color: #FFAB12; /* Arancione */
+    color: black; /* Testo nero */
+}
+
+.category-aperitivi td,
+.category-aperitivi th {
+    background-color: #FFAB12; /* Colora anche l'interno delle celle */
+    color: black; /* Colore del testo */
+    border-color: black; /* Bordi neri */
+}
+
+/* Riga per prodotti nella categoria 'vini_bianchi' */
+.category-vini_bianchi,
+.category-vini_bollicine {
+    background-color: #76F051; /* Verde chiaro */
+    color: black; /* Testo nero */
+}
+
+.category-vini_bianchi td,
+.category-vini_bianchi th,
+.category-vini_bollicine td,
+.category-vini_bollicine th {
+    background-color: #76F051; /* Colora anche l'interno delle celle */
+    color: black; /* Colore del testo */
+    border-color: black; /* Bordi neri */
+}
+
+/* Riga per prodotti nella categoria 'vini_rossi' */
+.category-vini_rossi,
+.category-vini_rose {
+    background-color: #E31E23; /* Rosso intenso */
+    color: white; /* Testo bianco per contrasto */
+}
+
+.category-vini_rossi td,
+.category-vini_rossi th,
+.category-vini_rose td,
+.category-vini_rose th {
+    background-color: #E31E23; /* Colora anche l'interno delle celle */
+    color: white; /* Colore del testo */
+    border-color: black; /* Bordi neri */
+}
+
+/* Riga per prodotti nella categoria 'cocktail' */
+.category-cocktail {
+    background-color: #2DDDE0; /* Azzurro brillante */
+    color: black; /* Testo nero */
+}
+
+.category-cocktail td,
+.category-cocktail th {
+    background-color: #2DDDE0; /* Colora anche l'interno delle celle */
+    color: black; /* Colore del testo */
+    border-color: black; /* Bordi neri */
+}
+
+/* Riga per prodotti nella categoria 'superalcolici' */
+.category-superalcolici {
+    background-color: #353EF0; /* Blu */
+    color: white; /* Testo bianco per contrasto */
+}
+
+.category-superalcolici td,
+.category-superalcolici th {
+    background-color: #353EF0; /* Colora anche l'interno delle celle */
+    color: white; /* Colore del testo */
+    border-color: black; /* Bordi neri */
+}
+
+/* Riga per prodotti nella categoria 'food' */
+.category-food {
+    background-color: #D2B48C; /* Marrone chiaro */
+    color: black; /* Testo nero */
+}
+
+.category-food td,
+.category-food th {
+    background-color: #D2B48C; /* Colora anche l'interno delle celle */
+    color: black; /* Colore del testo */
+    border-color: black; /* Bordi neri */
+}
+
+/* Stile comune per la tabella */
+.table th,
+.table td {
+    padding: 15px;
+    text-align: left;
+    border: 1px solid black; /* Bordi neri tra le celle */
+}
+
+.table th {
+    font-weight: bold;
+}

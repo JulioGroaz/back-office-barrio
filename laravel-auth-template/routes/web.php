@@ -30,7 +30,8 @@ Route::get('/home', [GuestHomeController::class, 'index'])->name('home');
 Route::middleware('auth')->name('admin.')->prefix('admin/')->group(function() {
     Route::get('menu/{menu}/edit', [AdminMenuController::class, 'edit'])->name('menu.edit');
     Route::resource('/menues', AdminMenuController::class);
-    Route::resource('/chisiamo', AdminChiSiamoController::class);
+    Route::resource('chisiamo', AdminChiSiamoController::class)->except(['show']);
+
     Route::resource('/events', AdminEventiController::class);
 
     // Rotta per mostrare un singolo evento tramite la vista 'showevents'

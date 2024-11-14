@@ -25,16 +25,10 @@
                 <p>Immagine attuale:</p>
                 <img src="{{ asset('storage/' . $chisiamo->image_path) }}" alt="{{ $chisiamo->title }}" style="max-width: 300px;">
             @endif
-            <small>Lascia vuoto se non vuoi cambiare l'immagine</small>
         </div>
 
-        <!-- Pulsante per salvare le modifiche -->
+        <!-- Bottone con il testo Salva Modifiche -->
         <button type="submit" class="btn btn-primary mt-3">Salva Modifiche</button>
     </form>
-
-    <!-- Pulsante per tornare alla lista delle sezioni -->
-    <a href="{{ route('admin.chisiamo.index') }}" class="btn btn-secondary mt-3">
-        <i class="fa fa-arrow-left"></i> Torna alla lista delle sezioni
-    </a>
 </div>
 @endsection
