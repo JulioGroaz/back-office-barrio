@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ChiSiamo extends Model
 {
+    protected $table = 'chi_siamos';
+
     use HasFactory;
     use SoftDeletes;
 }
