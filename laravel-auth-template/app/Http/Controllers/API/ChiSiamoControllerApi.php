@@ -10,10 +10,9 @@ class ChiSiamoControllerApi extends Controller
 {
     public function index()
     {
-        // Recupera tutti i record dalla tabella ChiSiamo
-        $chisiamo = ChiSiamo::all();
 
+    // Recupera tutti i record dalla tabella ChiSiamo
         // Restituisce i dati in formato JSON
-        return response()->json($chisiamo);
+        return response()->json(ChiSiamo::all());
     }
 }

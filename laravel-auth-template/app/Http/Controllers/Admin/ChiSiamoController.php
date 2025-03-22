@@ -14,16 +14,10 @@ class ChiSiamoController extends Controller
      */
     public function index()
     {
-        // Recupera la prima sezione "Chi Siamo"
-        $chisiamo = ChiSiamo::first();
-
-        if ($chisiamo) {
-            // Se esiste, reindirizza alla pagina di modifica
-            return redirect()->route('admin.chisiamo.edit', $chisiamo->id);
-        } else {
-            // Se non esiste, reindirizza alla pagina di creazione
-            return redirect()->route('admin.chisiamo.create');
-        }
+        // Recupera tutte le sezioni "Chi Siamo" (anche se ce ne sarà solo una)
+        //$chisiamo = ChiSiamo::all();
+        $chisiamo = ChiSiamo::orderBy('created_at', 'desc')->get();
+        return view('admin.chisiamo.indexchisiamo', compact('chisiamo'));
     }
 
     /**
