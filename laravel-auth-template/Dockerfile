@@ -24,9 +24,10 @@ WORKDIR /var/www/html
 COPY . .
 
 # Installa le dipendenze Composer e NPM + build del frontend (Vite)
-RUN composer install --no-dev --optimize-autoloader \
-    && npm install \
-    && npm run build
+RUN composer install --no-dev --optimize-autoloader
+RUN npm install
+RUN npm run build
+
 
 # 2) STAGE "RUNTIME": immagine finale con PHP-CLI
 FROM php:8.2-cli AS runtime
