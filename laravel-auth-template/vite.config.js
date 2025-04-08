@@ -5,11 +5,18 @@ export default defineConfig({
     base: '/build/',
     build: {
         manifest: true,
-        manifest: 'public/build/manifest.json',
         outDir: 'public/build',
         emptyOutDir: true,
+        rollupOptions: {
+            output: {
+                // forza vite a NON mettere i file nella cartella `.vite`
+                // workaround per Laravel che cerca direttamente in `/build`
+                entryFileNames: `[name].js`,
+                chunkFileNames: `[name].js`,
+                assetFileNames: `[name].[ext]`,
+            },
+        },
     },
-    
     plugins: [
         laravel({
             input: [
