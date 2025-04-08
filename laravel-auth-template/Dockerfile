@@ -14,7 +14,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Imposta la working dir
 WORKDIR /var/www/html
-COPY .env .
+#  COPY .env .
 # Copia il codice Laravel (tutto il progetto)
 COPY . .
 
