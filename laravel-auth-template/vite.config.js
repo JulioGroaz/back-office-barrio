@@ -5,9 +5,11 @@ export default defineConfig({
     base: '/build/',
     build: {
         manifest: true,
+        manifest: 'public/build/manifest.json',
         outDir: 'public/build',
         emptyOutDir: true,
     },
+    
     plugins: [
         laravel({
             input: [
