@@ -3,6 +3,11 @@ import laravel from 'laravel-vite-plugin';
 
 export default defineConfig({
     base: '/build/',
+    build: {
+        manifest: true,
+        outDir: 'public/build',
+        emptyOutDir: true,
+    },
     plugins: [
         laravel({
             input: [
@@ -12,9 +17,4 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-    build: {
-        outDir: 'public/build',
-        emptyOutDir: true,
-        manifest: true,
-    },
 });
